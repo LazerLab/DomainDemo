@@ -6,9 +6,9 @@ Usage:
 
 Arguments:
     univariate_path: str
-        The path to the input Parquet file containing univariate data. These file contain the user distribution of each domain across different categories in the demographic dimensions.
+        The path to the input Parquet file containing univariate data. This file contain the user distribution of each domain across different categories in the demographic dimensions.
     univariate_all_domains_path: str
-        The path to the input Parquet file containing univariate data for all domains. These file contain the user distribution of all domains across different categories in the demographic dimensions and serves as the baseline.
+        The path to the input Parquet file containing univariate data for all domains. This file contain the user distribution of all domains across different categories in the demographic dimensions and serves as the baseline.
     demo: str
         The demographic category to be used for the calculation.
     output_path: str
@@ -46,5 +46,7 @@ df[f"f_dc"] = df["users"] / df[f"domain_total_users"]
 df[f"kl_divergence"] = df[f"f_dc"] * np.log2(df[f"f_dc"] / df[f"f_c"])
 
 kl_divergence = df.groupby("domain")[f"kl_divergence"].sum().to_frame().reset_index()
+
+kl_divergence.dropna(inplace=True)
 
 kl_divergence.to_parquet(output_path, index=False)
