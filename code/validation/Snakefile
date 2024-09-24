@@ -35,4 +35,16 @@ rule validate_localness_auc:
 rule validate_localness_f1:
     input: LOCALNESS_SCORE_MERGED
     output: LOCALNESS_SCORE_F1
-        shell: "python validate_localness_f1.py {input} {output}"
+    shell: "python validate_localness_f1.py {input} {output}"
+
+########################################################################################
+# Partisan Bias
+EXISTING_PARTISAN_BIAS_SCORES = os.path.join(EXISTING_LABELS_ROOT, "partisan_bias_scores.csv")
+POLITICAL_BIAS_SCORE = os.path.join(DERIVED_METRICS_ROOT, "bias_score_party.parquet")
+POLITICAL_BIAS_SCORE_REG = os.path.join(DERIVED_METRICS_ROOT, "bias_score_partyreg.parquet")
+POLITICAL_BIAS_SCORE_CORRELATION = os.path.join(OUTPUT_ROOT, "political_bias", "political_bias_correlation.csv")
+
+rule validate_political_bias_correlation:
+    input: EXISTING_PARTISAN_BIAS_SCORES, POLITICAL_BIAS_SCORE, POLITICAL_BIAS_SCORE_REG
+    output: POLITICAL_BIAS_SCORE_CORRELATION
+    shell: "python validate_political_bias_correlation.py {input} {output}"
