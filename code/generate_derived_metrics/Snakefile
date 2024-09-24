@@ -17,11 +17,9 @@ ALLTIME_UNIVARIATE_ALL_DOMAINS_DATA = os.path.join(ALLTIME_ROOT, "univariate_all
 
 # For these demographic factors, we will calculate the KL divergence
 MULTICATEGORY_DEMOS = ["state", "age", "race"]
-MULTICATEGORY_DEMOS = ["state"]
 
 # For these demographic factors, we will calculate the bias score
 BINARY_DEMOS = ["gender", "party", "partyreg"]
-BINARY_DEMOS = ["gender"]
 
 ########################################################################################
 ########################################################################################
@@ -39,3 +37,33 @@ rule calcualte_kl_divergence:
     params: "{demo}"
     output: KL_DIVERGENCE
     shell: "python calculate_kl_divergence.py {input} {params} {output}"
+
+########################################################################################
+########################################################################################
+# Binary bias score
+BIAS_SCORE = os.path.join(OUTPUT_ROOT, "bias_score_{demo}.parquet")
+
+# Define the mapping for binary categories
+binary_category_mapping = {
+    "gender": {
+        "left": "Male",
+        "right": "Female",
+    },
+    "party": {
+        "left": "Democrat",
+        "right": "Republican"
+    },
+    "partyreg": {
+        "left": "Democrat",
+        "right": "Republican"
+    }
+}
+
+rule calculate_bias_score_all:
+    input: expand(BIAS_SCORE, demo=BINARY_DEMOS)
+
+rule calculate_bias_score:
+    input: ALLTIME_UNIVARIATE_DATA, ALLTIME_UNIVARIATE_ALL_DOMAINS_DATA
+    params: "{demo}", lambda wildcards: binary_category_mapping[wildcards.demo]["left"], lambda wildcards: binary_category_mapping[wildcards.demo]["right"]
+    output: BIAS_SCORE
+    shell: "python calculate_bias_score.py {input} {params} {output}"
