@@ -1,0 +1,38 @@
+import os
+
+########################################################################################
+########################################################################################
+# Meta info
+DATA_ROOT = "../../data"
+PROCESSED_ROOT = os.path.join(DATA_ROOT, "processed")
+DERIVED_METRICS_ROOT = os.path.join(PROCESSED_ROOT, "derived_metrics")
+EXISTING_LABELS_ROOT = os.path.join(DATA_ROOT, "existing_labels")
+OUTPUT_ROOT = os.path.join(PROCESSED_ROOT, "validation")
+
+########################################################################################
+########################################################################################
+# Workflow
+
+########################################################################################
+# Localness
+LOCAL_NATIONAL_LABELS = os.path.join(EXISTING_LABELS_ROOT, "news_local_natioanl_classification.csv")
+
+LOCALNESS_SCORE = os.path.join(DERIVED_METRICS_ROOT, "kl_divergence_state.parquet")
+LOCALNESS_SCORE_MERGED = os.path.join(OUTPUT_ROOT, "localness", "localness_merged.csv")
+LOCALNESS_SCORE_AUC = os.path.join(OUTPUT_ROOT, "localness", "localness_auc.csv")
+LOCALNESS_SCORE_F1 = os.path.join(OUTPUT_ROOT, "localness", "localness_f1.csv")
+
+rule merge_localness_score_with_labels:
+    input: LOCAL_NATIONAL_LABELS, LOCALNESS_SCORE
+    output: LOCALNESS_SCORE_MERGED
+    shell: "python merge_localness_score_with_labels.py {input} {output}"
+
+rule validate_localness_auc:
+    input: LOCALNESS_SCORE_MERGED
+    output: LOCALNESS_SCORE_AUC
+    shell: "python validate_localness_auc.py {input} {output}"
+
+rule validate_localness_f1:
+    input: LOCALNESS_SCORE_MERGED
+    output: LOCALNESS_SCORE_F1
+        shell: "python validate_localness_f1.py {input} {output}"
