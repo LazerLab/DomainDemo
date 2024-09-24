@@ -1,0 +1,41 @@
+import os
+
+########################################################################################
+########################################################################################
+# Meta info
+DATA_ROOT = "../../data"
+RAW_ROOT = os.path.join(DATA_ROOT, "raw")
+PROCESSED_ROOT = os.path.join(DATA_ROOT, "processed")
+OUTPUT_ROOT = os.path.join(PROCESSED_ROOT, "derived_metrics")
+
+ALLTIME_ROOT = os.path.join(RAW_ROOT, "alltime")
+
+# These files contain the user distribution of each domain across different categories in the demographic dimensions.
+ALLTIME_UNIVARIATE_DATA = os.path.join(ALLTIME_ROOT, "univariate", "univariate_{demo}.parquet")
+# These files contain the user distribution of all domains across different categories in the demographic dimensions and serve as the baseline.
+ALLTIME_UNIVARIATE_ALL_DOMAINS_DATA = os.path.join(ALLTIME_ROOT, "univariate_all_domains", "univariate_all_domains_{demo}.parquet")
+
+# For these demographic factors, we will calculate the KL divergence
+MULTICATEGORY_DEMOS = ["state", "age", "race"]
+MULTICATEGORY_DEMOS = ["state"]
+
+# For these demographic factors, we will calculate the bias score
+BINARY_DEMOS = ["gender", "party", "partyreg"]
+BINARY_DEMOS = ["gender"]
+
+########################################################################################
+########################################################################################
+# Workflow
+
+########################################################################################
+# Multicategory KL divergence
+KL_DIVERGENCE = os.path.join(OUTPUT_ROOT, "kl_divergence_{demo}.parquet")
+
+rule calculate_kl_divergence_all:
+    input: expand(KL_DIVERGENCE, demo=MULTICATEGORY_DEMOS)
+
+rule calcualte_kl_divergence:
+    input: ALLTIME_UNIVARIATE_DATA, ALLTIME_UNIVARIATE_ALL_DOMAINS_DATA
+    params: "{demo}"
+    output: KL_DIVERGENCE
+    shell: "python calculate_kl_divergence.py {input} {params} {output}"
