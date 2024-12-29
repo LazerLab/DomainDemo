@@ -47,8 +47,6 @@ classification_cols = [
     "mbfc_score",
     "media_score",
     "buntain_share_ideology_score",
-    "buntain_view_ideology_score",
-    "buntain_like_ideology_score",
 ]
 corr_list = []
 for col in classification_cols:
