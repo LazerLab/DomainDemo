@@ -15,6 +15,9 @@ At the moment, we make the derived domain metrics available.
 The quantify different aspects, such as localness and audience partisanship, for over 129,000 domains.
 For details, please refer to the [derived metrics](/data/derived_metrics/README.md) page.
 
+We also provide an interactive app to allow everyone to explore the data.
+The app is hosted on [domaindemoexplorer.streamlit.app](https://domaindemoexplorer.streamlit.app/).
+
 # Citation
 
 If you use this dataset in your research, please cite the following paper:
