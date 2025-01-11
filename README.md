@@ -4,8 +4,16 @@ This repository contains the code and part of the data for the dataset "DomainDe
 
 # Directory Structure
 
+- [/code](/code): for example scripts to load the data and workflow to generate derived metrics
 - [/data](/data): for data
-- [/code](/code): for code
+
+# Data
+
+Details on how to access `DomainDemo-multivariate` and `DomainDemo-univariate` will be provided soon.
+
+At the moment, we make the derived domain metrics available.
+The quantify different aspects, such as localness and audience partisanship, for over 129,000 domains.
+For details, please refer to the [derived metrics](/data/derived_metrics/README.md) page.
 
 # Citation
 
