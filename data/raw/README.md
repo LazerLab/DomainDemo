@@ -1,26 +1,23 @@
 # Introduction
 
-This folder stores the released data files.
+This folder is a placeholder for storing the released raw data files if the users want to run the shared workflow.
 
 # Structure
 
-## `monthly`
+## DomainDemo-multivariate
 
-Data files split by month.
+The details on how to access `DomainDemo-multivariate` will be released soon.
 
-- `multivariate`: The DomainDemo-multivariate tables
-- `univariate`: The DomainDemo-univariate tables, with subfolders for each universe (e.g., age, gender, etc.)
-- `univariate_all_domains`: The aggregated statistics across all domains for each universe (e.g., age, gender, etc.)
+## `DomainDemo-univariate`
 
-## `alltime`
+The details on how to access `DomainDemo-univariate` will be released soon.
 
-Data files aggregated across all months.
-The main purpose of these files is to generate the derived metrics across the whole time period.
-Therefore, only the univariate data tables are included.
+To run the shared workflow, you need to download the raw data and put it in the `raw` folder with the following structure:
 
-- `univariate`: The DomainDemo-univariate tables aggregated across all months, with subfolders for each universe (e.g., age, gender, etc.)
-- `univariate_all_domains`: The aggregated statistics across all domains for each universe (e.g., age, gender, etc.)
-
-## `derived_metrics`
-
-The derived metrics across the whole time period.
+```
+raw/
+    univariate/
+        alltime/
+            baseline/
+            distribution/
+```
