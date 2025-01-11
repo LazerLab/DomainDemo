@@ -1,6 +1,7 @@
 # Introduction
 
 This directory contains the classification labels for domains we collected from existing datasets.
+These labels are used for validating our derived metrics.
 
 # Localness
 
@@ -32,5 +33,3 @@ Here are the sources of the labels:
 | mbfc_score | MBFC (Media Bias Fact Check) | https://mediabiasfactcheck.com  |
 | media_score | Eady et al. | https://gregoryeady.com |
 | buntain_share_ideology_score | Buntain et al. | https://osf.io/wtf9y |
-| buntain_view_ideology_score | Buntain et al. | https://osf.io/wtf9y |
-| buntain_like_ideology_score | Buntain et al. | https://osf.io/wtf9y |
