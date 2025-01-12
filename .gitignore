@@ -11,9 +11,6 @@ __pycache__/
 # snakemake log files
 .snakemake/
 
-# parquet files
-*.parquet
-
 # Distribution / packaging
 .Python
 build/
