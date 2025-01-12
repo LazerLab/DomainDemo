@@ -1,6 +1,6 @@
 # Introduction
 
-This folder contains the code to validate the derived metrics.
+This folder contains the code to validate the derived metrics for the domains.
 
 # Prerequisites
 
