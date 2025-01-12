@@ -8,17 +8,17 @@ RAW_ROOT = os.path.join(DATA_ROOT, "raw")
 PROCESSED_ROOT = os.path.join(DATA_ROOT, "processed")
 OUTPUT_ROOT = os.path.join(PROCESSED_ROOT, "derived_metrics")
 
-ALLTIME_ROOT = os.path.join(RAW_ROOT, "alltime")
+UNIVARIATE_ROOT = os.path.join(RAW_ROOT, "univariate", "alltime")
 
 # These files contain the user distribution of each domain across different categories in the demographic dimensions.
-ALLTIME_UNIVARIATE_DATA = os.path.join(ALLTIME_ROOT, "univariate", "univariate_{demo}.parquet")
+UNIVARIATE_DISTRIBUTION_DATA = os.path.join(UNIVARIATE_ROOT, "distribution", "univariate_{demo}.parquet")
 # These files contain the user distribution of all domains across different categories in the demographic dimensions and serve as the baseline.
-ALLTIME_UNIVARIATE_ALL_DOMAINS_DATA = os.path.join(ALLTIME_ROOT, "univariate_all_domains", "univariate_all_domains_{demo}.parquet")
+UNIVARIATE_BASELINE_DATA = os.path.join(UNIVARIATE_ROOT, "baseline", "univariate_baseline_{demo}.parquet")
 
 # For these demographic factors, we will calculate the KL divergence
 MULTICATEGORY_DEMOS = ["state", "age", "race"]
 
-# For these demographic factors, we will calculate the bias score
+# For these demographic factors, we will calculate the leaning score
 BINARY_DEMOS = ["gender", "party", "partyreg"]
 
 ########################################################################################
@@ -27,21 +27,21 @@ BINARY_DEMOS = ["gender", "party", "partyreg"]
 
 ########################################################################################
 # Multicategory KL divergence
-KL_DIVERGENCE = os.path.join(OUTPUT_ROOT, "kl_divergence_{demo}.parquet")
+KL_DIVERGENCE = os.path.join(OUTPUT_ROOT, "derived_{demo}_kl.parquet")
 
 rule calculate_kl_divergence_all:
     input: expand(KL_DIVERGENCE, demo=MULTICATEGORY_DEMOS)
 
 rule calcualte_kl_divergence:
-    input: ALLTIME_UNIVARIATE_DATA, ALLTIME_UNIVARIATE_ALL_DOMAINS_DATA
+    input: UNIVARIATE_DISTRIBUTION_DATA, UNIVARIATE_BASELINE_DATA
     params: "{demo}"
     output: KL_DIVERGENCE
     shell: "python calculate_kl_divergence.py {input} {params} {output}"
 
 ########################################################################################
 ########################################################################################
-# Binary bias score
-BIAS_SCORE = os.path.join(OUTPUT_ROOT, "bias_score_{demo}.parquet")
+# Binary leaning score
+LEANING_SCORE = os.path.join(OUTPUT_ROOT, "derived_{demo}_leaning.parquet")
 
 # Define the mapping for binary categories
 binary_category_mapping = {
@@ -59,11 +59,11 @@ binary_category_mapping = {
     }
 }
 
-rule calculate_bias_score_all:
-    input: expand(BIAS_SCORE, demo=BINARY_DEMOS)
+rule calculate_leaning_score_all:
+    input: expand(LEANING_SCORE, demo=BINARY_DEMOS)
 
-rule calculate_bias_score:
-    input: ALLTIME_UNIVARIATE_DATA, ALLTIME_UNIVARIATE_ALL_DOMAINS_DATA
+rule calculate_leaning_score:
+    input: UNIVARIATE_DISTRIBUTION_DATA, UNIVARIATE_BASELINE_DATA
     params: "{demo}", lambda wildcards: binary_category_mapping[wildcards.demo]["left"], lambda wildcards: binary_category_mapping[wildcards.demo]["right"]
-    output: BIAS_SCORE
-    shell: "python calculate_bias_score.py {input} {params} {output}"
+    output: LEANING_SCORE
+    shell: "python calculate_leaning_score.py {input} {params} {output}"
