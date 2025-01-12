@@ -17,7 +17,7 @@ OUTPUT_ROOT = os.path.join(PROCESSED_ROOT, "validation")
 # Localness
 LOCAL_NATIONAL_LABELS = os.path.join(EXISTING_LABELS_ROOT, "news_local_natioanl_classification.csv")
 
-LOCALNESS_SCORE = os.path.join(DERIVED_METRICS_ROOT, "kl_divergence_state.parquet")
+LOCALNESS_SCORE = os.path.join(DERIVED_METRICS_ROOT, "derived_state_kl.parquet")
 LOCALNESS_SCORE_MERGED = os.path.join(OUTPUT_ROOT, "localness", "localness_merged.csv")
 LOCALNESS_SCORE_AUC = os.path.join(OUTPUT_ROOT, "localness", "localness_auc.csv")
 LOCALNESS_SCORE_F1 = os.path.join(OUTPUT_ROOT, "localness", "localness_f1.csv")
@@ -38,13 +38,13 @@ rule validate_localness_f1:
     shell: "python validate_localness_f1.py {input} {output}"
 
 ########################################################################################
-# Partisan Bias
+# Political leaning
 EXISTING_PARTISAN_BIAS_SCORES = os.path.join(EXISTING_LABELS_ROOT, "partisan_bias_scores.csv")
-POLITICAL_BIAS_SCORE = os.path.join(DERIVED_METRICS_ROOT, "bias_score_party.parquet")
-POLITICAL_BIAS_SCORE_REG = os.path.join(DERIVED_METRICS_ROOT, "bias_score_partyreg.parquet")
-POLITICAL_BIAS_SCORE_CORRELATION = os.path.join(OUTPUT_ROOT, "political_bias", "political_bias_correlation.csv")
+POLITICAL_LEANING_SCORE = os.path.join(DERIVED_METRICS_ROOT, "derived_party_leaning.parquet")
+POLITICAL_LEANING_SCORE_REG = os.path.join(DERIVED_METRICS_ROOT, "derived_partyreg_leaning.parquet")
+POLITICAL_LEANING_SCORE_CORRELATION = os.path.join(OUTPUT_ROOT, "political_leaning", "political_leaning_correlation.csv")
 
-rule validate_political_bias_correlation:
-    input: EXISTING_PARTISAN_BIAS_SCORES, POLITICAL_BIAS_SCORE, POLITICAL_BIAS_SCORE_REG
-    output: POLITICAL_BIAS_SCORE_CORRELATION
-    shell: "python validate_political_bias_correlation.py {input} {output}"
+rule validate_political_leaning_correlation:
+    input: EXISTING_PARTISAN_BIAS_SCORES, POLITICAL_LEANING_SCORE, POLITICAL_LEANING_SCORE_REG
+    output: POLITICAL_LEANING_SCORE_CORRELATION
+    shell: "python validate_political_leaning_correlation.py {input} {output}"
