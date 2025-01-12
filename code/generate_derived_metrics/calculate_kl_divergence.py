@@ -2,12 +2,12 @@
 This script calculates the Kullback-Leibler (KL) divergence for different domains based on demographic data.
 
 Usage:
-    python calculate_kl_divergence.py <univariate_path> <univariate_all_domains_path> <demo> <output_path>
+    python calculate_kl_divergence.py <univariate_distribution_path> <univariate_baseline_path> <demo> <output_path>
 
 Arguments:
-    univariate_path: str
+    univariate_distribution_path: str
         The path to the input Parquet file containing univariate data. This file contain the user distribution of each domain across different categories in the demographic dimensions.
-    univariate_all_domains_path: str
+    univariate_baseline_path: str
         The path to the input Parquet file containing univariate data for all domains. This file contain the user distribution of all domains across different categories in the demographic dimensions and serves as the baseline.
     demo: str
         The demographic category to be used for the calculation.
@@ -19,23 +19,23 @@ import sys
 import pandas as pd
 import numpy as np
 
-univariate_path = sys.argv[1]
-univariate_all_domains_path = sys.argv[2]
+univariate_distribution_path = sys.argv[1]
+univariate_baseline_path = sys.argv[2]
 demo = sys.argv[3]
 output_path = sys.argv[-1]
 
-univariate_df = pd.read_parquet(univariate_path)
-print(f"Len of univariate df: {len(univariate_df)}")
+univariate_distribution_df = pd.read_parquet(univariate_distribution_path)
+print(f"Len of univariate distribution df: {len(univariate_distribution_df)}")
 
-univariate_all_domains_df = pd.read_parquet(univariate_all_domains_path)
-univariate_all_domains_df.rename(columns={"users": "demo_total_users"}, inplace=True)
-print(f"Len of univariate all domains df: {len(univariate_all_domains_df)}")
+univariate_baseline_df = pd.read_parquet(univariate_baseline_path)
+univariate_baseline_df.rename(columns={"users": "demo_total_users"}, inplace=True)
+print(f"Len of univariate baseline df: {len(univariate_baseline_df)}")
 
-df = univariate_df.merge(univariate_all_domains_df, on=demo)
+df = univariate_distribution_df.merge(univariate_baseline_df, on=demo)
 
-df[f"total_users"] = univariate_all_domains_df[f"demo_total_users"].sum()
+df[f"total_users"] = univariate_baseline_df[f"demo_total_users"].sum()
 domain_total_col_count = (
-    univariate_df.groupby("domain")["users"]
+    univariate_distribution_df.groupby("domain")["users"]
     .sum()
     .to_frame("domain_total_users")
     .reset_index()
