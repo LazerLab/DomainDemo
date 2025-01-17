@@ -23,10 +23,14 @@ The app is hosted on [domaindemoexplorer.streamlit.app](https://domaindemoexplor
 If you use this dataset in your research, please cite the following paper:
 
 ```bibtex
-@article{yang2025domaindemo,
-    author ={Kai-Cheng Yang and Pranav Goel and Alexi Quintana-Mathe and Luke Horgan and Stefan McCabe and Nir Grinberg and Kenneth Joseph and David Lazer},
-    title = {DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter},
-    journal = {In submission},
-    year = {2025}
+@misc{yang2025domaindemo,
+	title={DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter},
+	author={Kai-Cheng Yang and Pranav Goel and Alexi Quintana-Mathé and Luke Horgan and Stefan D. McCabe and Nir Grinberg and Kenneth Joseph and David Lazer},
+	year={2025},
+	eprint={2501.09035},
+	archivePrefix={arXiv},
+	primaryClass={cs.SI},
+	url={https://arxiv.org/abs/2501.09035},
+	journal={arxiv:2501.09035}
 }
 ```
