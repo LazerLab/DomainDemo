@@ -1,6 +1,6 @@
 # Introduction
 
-This repository contains the code and part of the data for the dataset "DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter."
+This repository contains the code and part of the data for the dataset [DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter](https://arxiv.org/abs/2501.09035).
 
 # Directory Structure
 
