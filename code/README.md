@@ -10,6 +10,7 @@ This folder stores the scripts for data processing and analysis.
 
 # Dependencies
 
+Most of the code is written in Python.
 We recommend using [uv](https://docs.astral.sh/uv/getting-started/installation/) to install the dependencies and manage the environment.
 
 If you have uv installed, you can install the dependencies by running:
