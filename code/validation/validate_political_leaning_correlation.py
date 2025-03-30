@@ -9,8 +9,8 @@ Usage:
 
 Arguments:
     existing_political_bias_labels_path: Path to the CSV file containing existing political bias labels.
-    political_leaning_score_path: Path to the parquet file containing calculated political leaning scores.
-    political_leaning_score_partyreg_path: Path to the parquet file containing calculated political leaning scores for party registration.
+    political_leaning_score_path: Path to the csv.gz file containing calculated political leaning scores.
+    political_leaning_score_partyreg_path: Path to the csv.gz file containing calculated political leaning scores for party registration.
     output_path: Path to save the output CSV file containing the correlation results.
 """
 
@@ -26,10 +26,8 @@ output_path = sys.argv[-1]
 
 existing_political_bias_labels_df = pd.read_csv(existing_political_bias_labels_path)
 
-political_leaning_score_df = pd.read_parquet(political_leaning_score_path)
-political_leaning_score_partyreg_df = pd.read_parquet(
-    political_leaning_score_partyreg_path
-)
+political_leaning_score_df = pd.read_csv(political_leaning_score_path)
+political_leaning_score_partyreg_df = pd.read_csv(political_leaning_score_partyreg_path)
 political_leaning_score_partyreg_df.rename(
     columns={
         "leaning_score": "leaning_score_reg",
