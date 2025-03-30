@@ -12,7 +12,7 @@ This repository contains the code and part of the data for the dataset [DomainDe
 Details on how to access `DomainDemo-multivariate` and `DomainDemo-univariate` will be provided soon.
 
 At the moment, we make the derived domain metrics available.
-The quantify different aspects, such as localness and audience partisanship, for over 129,000 domains.
+These metrics quantify different aspects, such as localness and audience partisanship, for over 129,000 domains.
 For details, please refer to the [derived metrics](/data/derived_metrics/README.md) page.
 
 We also provide an interactive app to allow everyone to explore the data.

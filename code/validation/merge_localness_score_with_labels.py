@@ -22,7 +22,7 @@ localness_score_path = sys.argv[2]
 output_path = sys.argv[-1]
 
 local_classification_df = pd.read_csv(existing_localness_labels_path)
-localness_score_df = pd.read_parquet(localness_score_path)
+localness_score_df = pd.read_csv(localness_score_path)
 
 local_classification_df = local_classification_df.query(
     f"classification != 'INCONSISTENT'"
@@ -30,7 +30,7 @@ local_classification_df = local_classification_df.query(
 
 localness_score_merged = localness_score_df.merge(local_classification_df, on="domain")
 print(
-    f"{len(localness_score_merged)} / {len(localness_score_df)} = {len(localness_score_merged) / len(localness_score_df)*100:.2f}% domains matched"
+    f"{len(localness_score_merged)} / {len(localness_score_df)} = {len(localness_score_merged) / len(localness_score_df) * 100:.2f}% domains matched"
 )
 
 localness_score_merged.to_csv(output_path, index=False)
