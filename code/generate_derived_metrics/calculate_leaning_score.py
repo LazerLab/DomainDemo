@@ -6,9 +6,9 @@ Usage:
 
 Arguments:
     univariate_distribution_path: str
-        The path to the input Parquet file containing univariate data. This file contain the user distribution of each domain across different categories in the demographic dimensions.
+        The path to the input csv.gz file containing univariate data. This file contain the user distribution of each domain across different categories in the demographic dimensions.
     univariate_baseline_path: str
-        The path to the input Parquet file containing univariate data for all domains. This file contain the user distribution of all domains across different categories in the demographic dimensions and serves as the baseline.
+        The path to the input csv.gz file containing univariate data for all domains. This file contain the user distribution of all domains across different categories in the demographic dimensions and serves as the baseline.
     demo: str
         The demographic category to be used for the calculation.
     left_category: str
@@ -16,7 +16,7 @@ Arguments:
     right_category: str
         The right category of the binary demographic dimension.
     output_path: str
-        The path to the output Parquet file where the leaning score results will be saved.
+        The path to the output csv.gz file where the leaning score results will be saved.
 """
 
 import pandas as pd
@@ -29,8 +29,8 @@ left_category = sys.argv[4]
 right_category = sys.argv[5]
 output_path = sys.argv[-1]
 
-univariate_distribution_df = pd.read_parquet(univariate_distribution_path)
-univariate_baseline_df = pd.read_parquet(univariate_baseline_path)
+univariate_distribution_df = pd.read_csv(univariate_distribution_path)
+univariate_baseline_df = pd.read_csv(univariate_baseline_path)
 univariate_baseline_df.rename(columns={"users": "demo_total_users"}, inplace=True)
 
 raw_count_binary_df = univariate_distribution_df.merge(univariate_baseline_df, on=demo)
@@ -49,4 +49,4 @@ portion_df[f"leaning_score"] = (
 
 portion_df.dropna(inplace=True)
 
-portion_df[["domain", "leaning_score"]].to_parquet(output_path, index=False)
+portion_df[["domain", "leaning_score"]].to_csv(output_path, index=False)

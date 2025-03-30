@@ -6,13 +6,13 @@ Usage:
 
 Arguments:
     univariate_distribution_path: str
-        The path to the input Parquet file containing univariate data. This file contain the user distribution of each domain across different categories in the demographic dimensions.
+        The path to the input csv.gz file containing univariate data. This file contain the user distribution of each domain across different categories in the demographic dimensions.
     univariate_baseline_path: str
-        The path to the input Parquet file containing univariate data for all domains. This file contain the user distribution of all domains across different categories in the demographic dimensions and serves as the baseline.
+        The path to the input csv.gz file containing univariate data for all domains. This file contain the user distribution of all domains across different categories in the demographic dimensions and serves as the baseline.
     demo: str
         The demographic category to be used for the calculation.
     output_path: str
-        The path to the output Parquet file where the KL divergence results will be saved.
+        The path to the output csv.gz file where the KL divergence results will be saved.
 """
 
 import sys
@@ -24,10 +24,10 @@ univariate_baseline_path = sys.argv[2]
 demo = sys.argv[3]
 output_path = sys.argv[-1]
 
-univariate_distribution_df = pd.read_parquet(univariate_distribution_path)
+univariate_distribution_df = pd.read_csv(univariate_distribution_path)
 print(f"Len of univariate distribution df: {len(univariate_distribution_df)}")
 
-univariate_baseline_df = pd.read_parquet(univariate_baseline_path)
+univariate_baseline_df = pd.read_csv(univariate_baseline_path)
 univariate_baseline_df.rename(columns={"users": "demo_total_users"}, inplace=True)
 print(f"Len of univariate baseline df: {len(univariate_baseline_df)}")
 
@@ -49,4 +49,4 @@ kl_divergence = df.groupby("domain")[f"kl_divergence"].sum().to_frame().reset_in
 
 kl_divergence.dropna(inplace=True)
 
-kl_divergence.to_parquet(output_path, index=False)
+kl_divergence.to_csv(output_path, index=False)
