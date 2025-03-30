@@ -10,4 +10,18 @@ This folder stores the scripts for data processing and analysis.
 
 # Dependencies
 
-Please refer to the `requirements.txt` file at the root of the repository for the dependencies.
+We recommend using [uv](https://docs.astral.sh/uv/getting-started/installation/) to install the dependencies and manage the environment.
+
+If you have uv installed, you can install the dependencies by running:
+
+```bash
+uv sync
+```
+
+You can run the scripts using uv by running:
+
+```bash
+uv run <script_name>.py
+```
+
+If you want to use other package managers, you can use the `requirements.txt` file at the root of the repository to install the dependencies.
