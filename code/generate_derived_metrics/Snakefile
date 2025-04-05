@@ -11,14 +11,14 @@ OUTPUT_ROOT = os.path.join(PROCESSED_ROOT, "derived_metrics")
 UNIVARIATE_ROOT = os.path.join(RAW_ROOT, "univariate", "alltime")
 
 # These files contain the user distribution of each domain across different categories in the demographic dimensions.
-UNIVARIATE_DISTRIBUTION_DATA = os.path.join(UNIVARIATE_ROOT, "distribution", "univariate_{demo}.csv.gz")
+UNIVARIATE_DISTRIBUTION_DATA = os.path.join(UNIVARIATE_ROOT, "distribution", "{demo}", "univariate_{demo}_alltime.csv.gz")
 # These files contain the user distribution of all domains across different categories in the demographic dimensions and serve as the baseline.
-UNIVARIATE_BASELINE_DATA = os.path.join(UNIVARIATE_ROOT, "baseline", "univariate_baseline_{demo}.csv.gz")
+UNIVARIATE_BASELINE_DATA = os.path.join(UNIVARIATE_ROOT, "baseline", "{demo}", "univariate_baseline_{demo}_alltime.csv.gz")
 
-# For these demographic factors, we will calculate the KL divergence
+# For demographic factors with multiple categories, we will calculate the KL divergence
 MULTICATEGORY_DEMOS = ["state", "age", "race"]
 
-# For these demographic factors, we will calculate the leaning score
+# For demographic factors with two primary categories, we will calculate the leaning score
 BINARY_DEMOS = ["gender", "party", "partyreg"]
 
 ########################################################################################
@@ -44,6 +44,8 @@ rule calcualte_kl_divergence:
 LEANING_SCORE = os.path.join(OUTPUT_ROOT, "derived_{demo}_leaning.csv.gz")
 
 # Define the mapping for binary categories
+# The left category corresponds to the negative value and the right category corresponds
+# to the positive value of the leaning score
 binary_category_mapping = {
     "gender": {
         "left": "Male",
