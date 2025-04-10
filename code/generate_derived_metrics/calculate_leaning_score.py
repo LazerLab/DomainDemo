@@ -35,7 +35,7 @@ univariate_baseline_df.rename(columns={"users": "demo_total_users"}, inplace=Tru
 
 raw_count_binary_df = univariate_distribution_df.merge(univariate_baseline_df, on=demo)
 
-raw_count_binary_df[f"users_portion"] = (
+raw_count_binary_df["users_portion"] = (
     raw_count_binary_df["users"] / raw_count_binary_df["demo_total_users"]
 )
 
@@ -43,7 +43,7 @@ portion_df = raw_count_binary_df.pivot_table(
     index="domain", columns=demo, values="users_portion", fill_value=0
 ).reset_index()
 
-portion_df[f"leaning_score"] = (
+portion_df["leaning_score"] = (
     portion_df[right_category] - portion_df[left_category]
 ) / (portion_df[right_category] + portion_df[left_category])
 

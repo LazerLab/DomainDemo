@@ -33,7 +33,7 @@ print(f"Len of univariate baseline df: {len(univariate_baseline_df)}")
 
 df = univariate_distribution_df.merge(univariate_baseline_df, on=demo)
 
-df[f"total_users"] = univariate_baseline_df[f"demo_total_users"].sum()
+df["total_users"] = univariate_baseline_df["demo_total_users"].sum()
 domain_total_col_count = (
     univariate_distribution_df.groupby("domain")["users"]
     .sum()
@@ -41,11 +41,11 @@ domain_total_col_count = (
     .reset_index()
 )
 df = df.merge(domain_total_col_count, on="domain")
-df[f"f_c"] = df[f"demo_total_users"] / df[f"total_users"]
-df[f"f_dc"] = df["users"] / df[f"domain_total_users"]
-df[f"kl_divergence"] = df[f"f_dc"] * np.log2(df[f"f_dc"] / df[f"f_c"])
+df["f_c"] = df["demo_total_users"] / df["total_users"]
+df["f_dc"] = df["users"] / df["domain_total_users"]
+df["kl_divergence"] = df["f_dc"] * np.log2(df["f_dc"] / df["f_c"])
 
-kl_divergence = df.groupby("domain")[f"kl_divergence"].sum().to_frame().reset_index()
+kl_divergence = df.groupby("domain")["kl_divergence"].sum().to_frame().reset_index()
 
 kl_divergence.dropna(inplace=True)
 
