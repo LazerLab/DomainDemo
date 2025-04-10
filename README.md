@@ -1,5 +1,7 @@
 # Introduction
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15151613.svg)](https://doi.org/10.5281/zenodo.15151613)
+
 This repository contains the code and part of the data for the dataset [DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter](https://arxiv.org/abs/2501.09035).
 
 # Directory Structure
