@@ -22,7 +22,7 @@ Detailed instructions are available on the Zenodo page.
 
 The `derived_metrics` is available for public access.
 These metrics quantify different aspects, such as localness and audience partisanship, for over 129,000 domains.
-For details, please refer to the [derived metrics](/data/derived_metrics/README.md) page.
+For details, please refer to the [derived metrics](/data/derived_metrics) folder.
 
 We also provide an interactive app to allow everyone to explore the data.
 The app is hosted on [domaindemoexplorer.streamlit.app](https://domaindemoexplorer.streamlit.app/).
