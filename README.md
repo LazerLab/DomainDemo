@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15151613.svg)](https://doi.org/10.5281/zenodo.15151613)
 
-This repository contains the code and part of the data for the dataset [DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter](https://arxiv.org/abs/2501.09035).
+This repository contains the code and part of the data for the dataset [DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter](https://doi.org/10.1038/s41597-025-05604-6).
 
 # Directory Structure
 
@@ -32,14 +32,15 @@ The app is hosted on [domaindemoexplorer.streamlit.app](https://domaindemoexplor
 If you use this dataset in your research, please cite the following paper:
 
 ```bibtex
-@misc{yang2025domaindemo,
-	title={DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter},
-	author={Kai-Cheng Yang and Pranav Goel and Alexi Quintana-Mathé and Luke Horgan and Stefan D. McCabe and Nir Grinberg and Kenneth Joseph and David Lazer},
-	year={2025},
-	eprint={2501.09035},
-	archivePrefix={arXiv},
-	primaryClass={cs.SI},
-	url={https://arxiv.org/abs/2501.09035},
-	journal={arxiv:2501.09035}
+@article{yang2025domaindemo,
+	author       = {Kai-Cheng Yang and Pranav Goel and Alexi Quintana-Mathé and Luke Horgan and Stefan D. McCabe and Nir Grinberg and Kenneth Joseph and David Lazer},
+	title        = {DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter},
+	journal      = {Scientific Data},
+	year         = {2025},
+	volume       = {12},
+	number       = {1},
+	pages        = {1251},
+	doi          = {10.1038/s41597-025-05604-6},
+	issn         = {2052-4463}
 }
 ```
