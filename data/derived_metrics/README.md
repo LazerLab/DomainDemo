@@ -13,7 +13,7 @@ We share six files, containing the following metrics that quantify different asp
 | derived_race_kl.csv.gz | 129,127 | [0, ∞) | Racial distribution deviation, larger values indicate that the domain shares are concentrated on a certain racial groups. |
 | derived_party_leaning.csv.gz | 129,127 | [-1, 1] | Audience partisanship, negative values indicate more shares from Democratic users and vice versa. |
 | derived_partyreg_leaning.csv.gz | 129,041 | [-1, 1] | Audience partisanship based on voter registration, negative values indicate more shares from Democratic users and vice versa. |
-| derived_gender_leaning.csv.gz | 129,127 | [-1, 1] | Audience gender leaning, negative values indicate more shares from female users and vice versa. |
+| derived_gender_leaning.csv.gz | 129,127 | [-1, 1] | Audience gender leaning, negative values indicate more shares from male users and vice versa. |
 
 Each file contains two columns, a `domain` column and a metric column (names vary across files).
 
